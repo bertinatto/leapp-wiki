@@ -28,6 +28,8 @@ LeApp migrated machine can be migrated to OpenShift/Kubernetes either as one mac
 ~~~
 
 **Step 2. b) - Stateless macro image example (local image only)**
+
+Run [helper tool](https://github.com/GAZDOWN/leapp/tree/kubernetes-stateless/kubernetes/template-generator) and generate macro-image templates
 ~~~
 # ./cli.py macroimage \
     --tcp 9022:22 80:80 \
@@ -57,6 +59,8 @@ leapp-migrated-container-svc.yaml
 ~~~
 
 **Step 2. b) Stateless multi-volume image example**
+
+Run [helper tool](https://github.com/GAZDOWN/leapp/tree/kubernetes-stateless/kubernetes/template-generator) and generate multi-volume image templates
 ~~~
 # ./cli.py multivolume \
     --tcp 9022:22 80:80 \
