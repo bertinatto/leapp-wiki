@@ -352,9 +352,11 @@ spec:
     volumeMounts:
     - mountPath: /etc
       name: leapp-migrated-container-etc-vol
+    ...
   volumes:
   - emptyDir: {}
     name: leapp-migrated-container-etc-vol
+  ...
 ~~~
 
 leapp-migrated-container-svc.yaml:
