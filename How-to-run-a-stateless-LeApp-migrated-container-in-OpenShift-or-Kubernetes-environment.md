@@ -1,19 +1,24 @@
-  By stateless container we understand a container which can be created and destroyed without loosing any important data related to its state. Such kind of data might be a file created and saved within the container file system, or database records etc. This doesn't mean, that there can't be a database or file server running in the container, but all changes done during the existence of the container will be gone once the container is destroyed.
+  By stateless container we understand a container which can be created and destroyed without loosing any important data related to its state or future work. Such kind of data might be a file created and saved within the container file system or database records assuming the database is running as a service in the container, etc. This is the same approach which Docker use by default. 
 
-  This allows to run multiple instances of the very same container as long as they are not sharing any external storage (write access required).
+This actually doesn't mean, that there can't be a database or file server running in the container, but all changes done during the existence of the container will be gone once the container is destroyed. There is not many use cases for this approach, but it might be useful when the container should be i.e. scaled and/or there is no need for storing the changes done during its existence. If there is such need, we recommend to check the [stateful](http://www.github.com) approach.
 
-## Example applications 
+
+## Example of stateless applications 
 * VPN server
-* Static HTTP/FTP server
-* Dynamic HTTP server of which state is stored in external database
+* Static Web/FTP server
+* Dynamic web server of which state is stored in external database
 * In-memory database
 
 ## LeApp to OpenShift/Kubernetes migration
-LeApp migrated machine can be migrated to OpenShift/Kubernetes either as one macro-image, or as an image mounting multiple ephemeral volumes (multivolume). For now, we only support "multiple step" migration which involve leapp-tool and helper script. Leapp-tool is used for primary migration of the machine to a container. The helper script will generate required templates for creating an OpenShift/Kubernetes pod and service and in case of macro-image, a Dockerfile will be generated as well.
+LeApp migrated machine can be migrated to OpenShift/Kubernetes either as one macro-image, or as an image mounting multiple ephemeral volumes (multivolume). For the time being, the only way to migrate the container involves multiple steps involving the LeApp tool and so a helper script - template generator.
+
+The Leapp-tool is used to migrate the source machine to a container. This is an intermediate step, so we can run the template generator script and generate required OpenShift/Kubernetes templates for creating a pod and service. When an macro-image approach is selected, a Dockerfile will be generated as well.
+
+The intermediate image, created by LeApp tool can be removed once the migration to OpenShift/Kubernetes is done.
 
 ### Requirements
 **Macro-image**
-* Private registry in order to pull image on any node or access to a node where the container will be running
+* Private registry in order to pull the image on any node or access to a node where the container will be running
 * Privileges to mount hostPath (/sys/fs/cgroup) and in memory emptyDir in case of SystemD based container
 
 **Multi-volume**
@@ -98,6 +103,12 @@ _**NOTE**_: Please edit the pre-generated service template in case you need spec
 ~~~
 oc create -f leapp-migrated-container-pod.yaml
 oc create -f leapp-migrated-container-svc.yaml
+~~~
+
+**Step 5) (Optional) Destroy the intermediate container**
+
+~~~
+leapp-tool destroy-container leapp-migrated-container
 ~~~
 
 ## Known issues
