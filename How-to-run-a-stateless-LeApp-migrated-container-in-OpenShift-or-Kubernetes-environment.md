@@ -124,6 +124,13 @@ mkdir -p /sys/fs/cgroup/systemd/user
 echo $$ > /sys/fs/cgroup/systemd/user/cgroup.procs
 ~~~
 
+**SELinux is blocking access to cgroup calls**
+The *container_manage_cgroup* SELinux boolean must be enabled for systemd based containers, else the systemd within the container will refuse to start
+ 
+~~~
+setsebool -P container_manage_cgroup 1
+~~~
+
 **Replacing of /etc/hosts file**
 
 */etc/hosts* file will be always replaced by underlying container daemon
