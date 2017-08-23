@@ -125,6 +125,7 @@ echo $$ > /sys/fs/cgroup/systemd/user/cgroup.procs
 ~~~
 
 **SELinux is blocking access to cgroup calls**
+
 The *container_manage_cgroup* SELinux boolean must be enabled for systemd based containers, else the systemd within the container will refuse to start
  
 ~~~
