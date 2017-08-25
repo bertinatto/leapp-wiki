@@ -1,6 +1,7 @@
 **Wiki**
 * [Home](https://github.com/leapp-to/leapp/wiki)
-* [Migrate to OpenShift](https://github.com/leapp-to/leapp/wiki/How-to-run-a-stateless-LeApp-migrated-container-in-OpenShift-or-Kubernetes-environment)
+* [Running stateless containers in OpenShift](Running-LeApp's-stateless-containers-on-OpenShift.md)
+* [Running stateful containers in OpenShift](Running-LeApp's-stateful-containers-on-OpenShift.md)
 
 [**Test reports**](https://github.com/leapp-to/leapp/wiki/List-of-test-reports)
 * [Satellite 6.2 on RHEL7](https://github.com/leapp-to/leapp/wiki/Migration-of-Satellite-6.2-running-on-RHEL7)
